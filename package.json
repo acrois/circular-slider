@@ -49,9 +49,6 @@
     "generate": "stencil generate",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {
-    "stencil": "^2.6.0"
-  },
   "devDependencies": {
     "@stencil/core": "^4.7.0",
     "@types/jest": "^29.5.6",
