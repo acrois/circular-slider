@@ -1,7 +1,12 @@
 {
   "name": "circular-slider",
   "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "author": {
+    "name": "Aaron Croissette",
+    "email": "hello@acrois.dev",
+    "url": "https://acrois.dev/"
+  },
+  "description": "A customizable circular slider web component designed for accessibility.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -23,20 +28,29 @@
       "types": "./loader/index.d.ts"
     }
   },
+  "bugs": {
+    "url": "https://github.com/acrois/circular-slider/issues"
+  },
+  "homepage": "https://github.com/acrois/circular-slider#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/acrois/circular-slider.git"
   },
   "files": [
     "dist/",
-    "loader/"
+    "loader/",
+    "readme.md"
   ],
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "stencil": "^2.6.0"
   },
   "devDependencies": {
     "@stencil/core": "^4.7.0",
@@ -46,5 +60,10 @@
     "jest-cli": "^29.7.0",
     "puppeteer": "^21.9.0"
   },
+  "keywords": [
+    "stencil",
+    "web-components",
+    "circular-slider"
+  ],
   "license": "MIT"
 }

@@ -39,4 +39,19 @@ describe('circular-slider', () => {
     expect(cx).not.toBe('150');
     expect(cy).not.toBe('10');
   });
+
+  it('applies custom colors', async () => {
+    const page = await newSpecPage({
+      components: [CircularSlider],
+      html: `<circular-slider bg-color="#ff0000" fg-color="#00ff00" text-color="#0000ff"></circular-slider>`,
+    });
+
+    const backgroundCircle = page.root.shadowRoot.querySelector('.background') as SVGCircleElement;
+    const foregroundCircle = page.root.shadowRoot.querySelector('.foreground') as SVGCircleElement;
+    const text = page.root.shadowRoot.querySelector('text') as SVGTextElement;
+
+    expect(backgroundCircle.style.stroke).toBe('#ff0000');
+    expect(foregroundCircle.style.stroke).toBe('#00ff00');
+    expect(text.style.fill).toBe('#0000ff');
+  });
 });
