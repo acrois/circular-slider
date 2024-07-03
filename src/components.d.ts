@@ -6,56 +6,52 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface CircularSlider {
+        "bgColor": string;
+        "fgColor": string;
+        "fontSize": number;
+        "max": number;
+        "min": number;
+        "size": number;
+        "textColor": string;
+        "thumbColor": string;
+        "thumbSize": number;
+        "value": number;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLCircularSliderElement extends Components.CircularSlider, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLCircularSliderElement: {
+        prototype: HTMLCircularSliderElement;
+        new (): HTMLCircularSliderElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "circular-slider": HTMLCircularSliderElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface CircularSlider {
+        "bgColor"?: string;
+        "fgColor"?: string;
+        "fontSize"?: number;
+        "max"?: number;
+        "min"?: number;
+        "size"?: number;
+        "textColor"?: string;
+        "thumbColor"?: string;
+        "thumbSize"?: number;
+        "value"?: number;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "circular-slider": CircularSlider;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "circular-slider": LocalJSX.CircularSlider & JSXBase.HTMLAttributes<HTMLCircularSliderElement>;
         }
     }
 }

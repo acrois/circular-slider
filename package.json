@@ -13,9 +13,9 @@
       "import": "./dist/circular-slider/circular-slider.esm.js",
       "require": "./dist/circular-slider/circular-slider.cjs.js"
     },
-    "./my-component": {
-      "import": "./dist/components/my-component.js",
-      "types": "./dist/components/my-component.d.ts"
+    "./circular-slider": {
+      "import": "./dist/components/circular-slider.js",
+      "types": "./dist/components/circular-slider.d.ts"
     },
     "./loader": {
       "import": "./loader/index.js",
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/acrois/circular-slider.git"
   },
   "files": [
     "dist/",
