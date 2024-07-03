@@ -33,9 +33,14 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    # - name: Setup Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '20'
+
     - name: Publish to npm
       run: |
-        rm -f .npmrc .yarnrc
+        rm -f .npmrc .yarnrc $NPM_CONFIG_USERCONFIG
         npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
