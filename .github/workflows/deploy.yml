@@ -23,20 +23,19 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        registry-url: 'https://npm.pkg.github.com'
 
     - name: Install dependencies
       run: npm install
 
-    - name: Build package
-      run: npm run build
-
     - name: Publish to GitHub Packages
-      run: |
-        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-        echo "@acrois:registry=https://npm.pkg.github.com" > .npmrc
-        npm publish
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # - name: Publish to npm
-    #   run: npm publish --access public
+    #   run: |
+    #     rm .npmrc
+    #     npm publish --access public
     #   env:
     #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
