@@ -7,6 +7,10 @@ on:
       - master
       - trunk
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
