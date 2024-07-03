@@ -32,11 +32,9 @@ jobs:
 
     - name: Publish to GitHub Packages
       run: |
-        echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
         echo "@acrois:registry=https://npm.pkg.github.com" > .npmrc
         npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # - name: Publish to npm
     #   run: npm publish --access public
