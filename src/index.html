@@ -16,24 +16,28 @@
     <script nomodule src="/build/circular-slider.js"></script>
   </head>
   <body>
-    <h2>Size and Value</h2>
+    <h2>Size and Value, 0 decimal precision</h2>
     <div style="width: 150px;">
-      <circular-slider size="150" value="33"></circular-slider>
+      <circular-slider size="150" value="33" precision="0"></circular-slider>
     </div>
     <h2>Background and Foreground Color</h2>
     <div style="width: 300px;">
       <circular-slider size="150" value="90" bg-color="#000" fg-color="#ff00ff"></circular-slider>
     </div>
-    <h2>Text Color and Thumb Size</h2>
+    <h2>Text Color and Thumb Size, 1 precision</h2>
     <div style="width: 150px;">
-      <circular-slider value="45" text-color="#ff00ff" thumb-size="30"></circular-slider>
+      <circular-slider value="45" text-color="#ff00ff" thumb-size="30" precision="1"></circular-slider>
     </div>
     <form id="test-form">
-      <h2>Form Value</h2>
+      <h2>Form Value and Custom Format</h2>
       <div style="width: 100px;">
         <circular-slider name="circle" size="150" value="90"></circular-slider>
       </div>
       <input type="submit" value="GOGOGO" />
     </form>
+    <script type="text/javascript">
+      const slider = document.getElementById('test-form').querySelector('[name="circle"]');
+      slider.formatText = (factor) => `${(factor/15).toFixed(2)}hrs`;
+    </script>
   </body>
 </html>

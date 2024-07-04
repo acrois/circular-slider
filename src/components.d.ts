@@ -13,6 +13,7 @@ export namespace Components {
         "formatText": (value: number) => string;
         "max": number;
         "min": number;
+        "precision": number;
         "size": number;
         "textColor": string;
         "thumbColor": string;
@@ -39,6 +40,7 @@ declare namespace LocalJSX {
         "formatText"?: (value: number) => string;
         "max"?: number;
         "min"?: number;
+        "precision"?: number;
         "size"?: number;
         "textColor"?: string;
         "thumbColor"?: string;

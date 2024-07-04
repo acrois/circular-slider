@@ -11,6 +11,7 @@ export class CircularSlider {
   @Element() element: HTMLElement;
   @AttachInternals() internals: ElementInternals;
 
+  @Prop() precision: number = 2;
   @Prop() size: number = 300;
   @Prop() bgColor: string = '#ccc';
   @Prop() fgColor: string = '#007bff';
@@ -80,7 +81,7 @@ export class CircularSlider {
     this.thumb.setAttribute('cx', x.toString());
     this.thumb.setAttribute('cy', y.toString());
     this.foreground.style.strokeDashoffset = (this.circumference - (this.circumference * angle / 360)).toString();
-    this.value = Math.round(angle);
+    this.value = +angle.toFixed(this.precision);
   }
 
   private startDrag = (e: MouseEvent | TouchEvent) => {
@@ -126,7 +127,7 @@ export class CircularSlider {
 
   private attachEvents() {
     this.svg.addEventListener('mousedown', this.startDrag);
-    this.svg.addEventListener('touchstart', this.startDrag, { passive: true });
+    this.svg.addEventListener('touchstart', this.startDrag, { passive: false });
     document.addEventListener('mousemove', this.updatePosition);
     document.addEventListener('touchmove', this.updatePosition, { passive: true });
     document.addEventListener('mouseup', this.stopDrag);
