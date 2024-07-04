@@ -105,6 +105,7 @@ export class CircularSlider {
       newValue = Math.max(this.value - 1, this.min);
     }
     if (newValue !== undefined) {
+      e.preventDefault();
       const angle = (newValue / this.max) * 360;
       this.updateThumbPosition(angle);
     }
@@ -123,7 +124,7 @@ export class CircularSlider {
     document.addEventListener('touchend', this.stopDrag);
     this.svg.addEventListener('touchstart', this.preventDrag, { passive: false });
     this.svg.addEventListener('touchmove', this.preventDrag, { passive: false });
-    this.element.shadowRoot.addEventListener('keydown', this.handleKey);
+    this.element.addEventListener('keydown', this.handleKey);
   }
 
   private detachEvents() {
@@ -135,7 +136,7 @@ export class CircularSlider {
     document.removeEventListener('touchend', this.stopDrag);
     this.svg.removeEventListener('touchstart', this.preventDrag);
     this.svg.removeEventListener('touchmove', this.preventDrag);
-    this.element.shadowRoot.removeEventListener('keydown', this.handleKey);
+    this.element.removeEventListener('keydown', this.handleKey);
   }
 
   render() {

@@ -4,22 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
-
+    <style>
+      html, body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
     <script type="module" src="/build/circular-slider.esm.js"></script>
     <script nomodule src="/build/circular-slider.js"></script>
   </head>
   <body>
+    <h2>Size and Value</h2>
     <div style="width: 150px;">
       <circular-slider size="150" value="33"></circular-slider>
     </div>
+    <h2>Background and Foreground Color</h2>
     <div style="width: 300px;">
       <circular-slider size="150" value="90" bg-color="#000" fg-color="#ff00ff"></circular-slider>
     </div>
+    <h2>Text Color and Thumb Size</h2>
     <div style="width: 150px;">
       <circular-slider value="45" text-color="#ff00ff" thumb-size="30"></circular-slider>
     </div>
-    <div style="width: 100px;">
-      <circular-slider size="150" value="90"></circular-slider>
-    </div>
+    <form id="test-form">
+      <h2>Form Value</h2>
+      <div style="width: 100px;">
+        <circular-slider name="circle" size="150" value="90"></circular-slider>
+      </div>
+      <input type="submit" value="GOGOGO" />
+    </form>
   </body>
 </html>

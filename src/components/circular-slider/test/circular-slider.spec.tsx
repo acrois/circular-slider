@@ -89,4 +89,37 @@ describe('circular-slider', () => {
     const text = page.root.shadowRoot.querySelector('text') as SVGTextElement;
     expect(text.textContent).toBe('6:00');
   });
+
+  it('handles key events to change value', async () => {
+    const page = await newSpecPage({
+      components: [CircularSlider],
+      html: `<circular-slider value="0" min="0" max="360"></circular-slider>`,
+    });
+
+    const circularSlider = page.root as HTMLCircularSliderElement;
+
+    // Simulate ArrowRight key press to increment value
+    const eventRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+    circularSlider.dispatchEvent(eventRight);
+    await page.waitForChanges();
+    expect(circularSlider.value).toBe(1);
+
+    // Simulate ArrowUp key press to increment value
+    const eventUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+    circularSlider.dispatchEvent(eventUp);
+    await page.waitForChanges();
+    expect(circularSlider.value).toBe(2);
+
+    // Simulate ArrowLeft key press to decrement value
+    const eventLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+    circularSlider.dispatchEvent(eventLeft);
+    await page.waitForChanges();
+    expect(circularSlider.value).toBe(1);
+
+    // Simulate ArrowDown key press to decrement value
+    const eventDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+    circularSlider.dispatchEvent(eventDown);
+    await page.waitForChanges();
+    expect(circularSlider.value).toBe(0);
+  });
 });
