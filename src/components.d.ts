@@ -10,6 +10,7 @@ export namespace Components {
         "bgColor": string;
         "fgColor": string;
         "fontSize": number;
+        "formatText": (value: number) => string;
         "max": number;
         "min": number;
         "size": number;
@@ -35,6 +36,7 @@ declare namespace LocalJSX {
         "bgColor"?: string;
         "fgColor"?: string;
         "fontSize"?: number;
+        "formatText"?: (value: number) => string;
         "max"?: number;
         "min"?: number;
         "size"?: number;

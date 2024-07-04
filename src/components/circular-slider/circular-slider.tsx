@@ -19,6 +19,7 @@ export class CircularSlider {
   @Prop() min: number = 0;
   @Prop() max: number = 360;
   @Prop({ mutable: true }) value: number = 0;
+  @Prop() formatText: (value: number) => string = (value) => `${value}°`;
 
   @State() dragging: boolean = false;
 
@@ -128,7 +129,7 @@ export class CircularSlider {
           <circle class="background" cx={this.size / 2} cy={this.size / 2} r={radius} style={{ stroke: this.bgColor, strokeWidth: `${this.thumbSize / 2}px` }}></circle>
           <circle class="foreground" ref={el => this.foreground = el as SVGCircleElement} cx={this.size / 2} cy={this.size / 2} r={radius} style={{ stroke: this.fgColor, strokeDasharray: `${circumference}`, strokeDashoffset: `${circumference}`, strokeWidth: `${this.thumbSize / 2}px` }}></circle>
           <circle class="thumb" ref={el => this.thumb = el as SVGCircleElement} cx={this.size / 2} cy={this.size / 2 - radius} r={this.thumbSize / 2} style={{ fill: this.thumbColor }}></circle>
-          <text x={this.size / 2} y={this.size / 2} style={{ fill: this.textColor, fontSize: `${this.fontSize}px` }}>{this.value}°</text>
+          <text x={this.size / 2} y={this.size / 2} style={{ fill: this.textColor, fontSize: `${this.fontSize}px` }}>{this.formatText(this.value)}</text>
         </svg>
       </Host>
     );

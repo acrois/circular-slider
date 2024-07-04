@@ -54,4 +54,19 @@ describe('circular-slider', () => {
     expect(foregroundCircle.style.stroke).toBe('#00ff00');
     expect(text.style.fill).toBe('#0000ff');
   });
+
+  it('formats text content using custom function', async () => {
+    const page = await newSpecPage({
+      components: [CircularSlider],
+      html: `<circular-slider></circular-slider>`,
+    });
+
+    const element = page.root as HTMLCircularSliderElement;
+    element.formatText = (value: number) => `${Math.floor(value / 15)}:00`;
+    element.value = 90;
+    await page.waitForChanges();
+
+    const text = page.root.shadowRoot.querySelector('text') as SVGTextElement;
+    expect(text.textContent).toBe('6:00');
+  });
 });
