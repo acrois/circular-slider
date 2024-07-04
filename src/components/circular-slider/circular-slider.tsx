@@ -58,6 +58,8 @@ export class CircularSlider {
         // Handle potential error in test environment
       }
     }
+
+    this.emitChangeEvent('input');
   }
 
   private get radius() {
@@ -66,6 +68,11 @@ export class CircularSlider {
 
   private get circumference() {
     return 2 * Math.PI * this.radius;
+  }
+
+  private emitChangeEvent(eventName: string) {
+    const event = new Event(eventName, { bubbles: true, composed: true });
+    this.element.dispatchEvent(event);
   }
 
   private updateThumbPosition(angle: number) {
@@ -85,6 +92,7 @@ export class CircularSlider {
   private stopDrag = (e: MouseEvent | TouchEvent) => {
     if (this.dragging) e.preventDefault();
     this.dragging = false;
+    this.emitChangeEvent('change');
   };
 
   private updatePosition = (e: MouseEvent | TouchEvent) => {
@@ -108,6 +116,7 @@ export class CircularSlider {
       e.preventDefault();
       const angle = (newValue / this.max) * 360;
       this.updateThumbPosition(angle);
+      this.emitChangeEvent('change');
     }
   };
 
@@ -144,7 +153,7 @@ export class CircularSlider {
     const circumference = this.circumference;
 
     return (
-      <Host role="slider" aria-valuemin={this.min} aria-valuemax={this.max} aria-valuenow={this.value} tabindex="0">
+      <Host role="slider" aria-valuemin={this.min} aria-valuemax={this.max} aria-valuenow={this.value}>
         <svg ref={el => this.svg = el as SVGSVGElement} viewBox={`0 0 ${this.size} ${this.size}`} preserveAspectRatio="xMidYMid meet">
           <circle class="background" cx={this.size / 2} cy={this.size / 2} r={radius} style={{ stroke: this.bgColor, strokeWidth: `${this.thumbSize / 2}px` }}></circle>
           <circle class="foreground" ref={el => this.foreground = el as SVGCircleElement} cx={this.size / 2} cy={this.size / 2} r={radius} style={{ stroke: this.fgColor, strokeDasharray: `${circumference}`, strokeDashoffset: `${circumference}`, strokeWidth: `${this.thumbSize / 2}px` }}></circle>

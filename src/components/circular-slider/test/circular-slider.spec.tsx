@@ -28,7 +28,7 @@ describe('circular-slider', () => {
       html: `<circular-slider></circular-slider>`,
     });
     expect(page.root).toEqualHtml(`
-      <circular-slider role="slider" aria-valuemin="0" aria-valuemax="360" aria-valuenow="0" tabindex="0">
+      <circular-slider role="slider" aria-valuemin="0" aria-valuemax="360" aria-valuenow="0">
         <mock:shadow-root>
           <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
             <circle class="background" cx="150" cy="150" r="140" style="stroke: #ccc; stroke-width: 10px;"></circle>
@@ -121,5 +121,31 @@ describe('circular-slider', () => {
     circularSlider.dispatchEvent(eventDown);
     await page.waitForChanges();
     expect(circularSlider.value).toBe(0);
+  });
+
+  it('dispatches input and change events', async () => {
+    const page = await newSpecPage({
+      components: [CircularSlider],
+      html: `<circular-slider value="0" min="0" max="360" tabindex="1"></circular-slider>`,
+    });
+
+    const circularSlider = page.root as HTMLCircularSliderElement;
+    const inputHandler = jest.fn();
+    const changeHandler = jest.fn();
+
+    circularSlider.addEventListener('input', inputHandler);
+    circularSlider.addEventListener('change', changeHandler);
+
+    // Simulate ArrowRight key press to increment value
+    const eventRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+    circularSlider.dispatchEvent(eventRight);
+    await page.waitForChanges();
+    expect(inputHandler).toHaveBeenCalled();
+
+    // Simulate mouseup to trigger change event
+    const eventMouseUp = new MouseEvent('mouseup');
+    document.dispatchEvent(eventMouseUp);
+    await page.waitForChanges();
+    expect(changeHandler).toHaveBeenCalled();
   });
 });
