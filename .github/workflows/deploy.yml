@@ -12,7 +12,7 @@ permissions:
   packages: write
 
 jobs:
-  build-and-deploy:
+  gha:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,15 +32,23 @@ jobs:
       run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  npm:
+    runs-on: ubuntu-latest
 
-    # - name: Setup Node.js
-    #   uses: actions/setup-node@v4
-    #   with:
-    #     node-version: '20'
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install dependencies
+      run: npm install
 
     - name: Publish to npm
-      run: |
-        rm -f .npmrc .yarnrc $NPM_CONFIG_USERCONFIG
-        npm publish --access public
+      run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
