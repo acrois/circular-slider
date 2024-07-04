@@ -1,5 +1,25 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { CircularSlider } from '../circular-slider';
+import { MockElement } from '@stencil/core/mock-doc';
+
+// BELOW: Disable error (warning) for MockElement proxy on attachInternals, we handle it gracefully in the code.
+//          We also validate that the form internals still work using the e2e test (as the error warning describes).
+// Save the original attachInternals method
+const originalAttachInternals = MockElement.prototype.attachInternals;
+
+// Override the attachInternals method for MockElement
+MockElement.prototype.attachInternals = function () {
+  const internals = originalAttachInternals.call(this);
+
+  return new Proxy(internals, {
+    get(target, prop) {
+      if (prop === 'setFormValue') {
+        return () => {}; // No-op function
+      }
+      return target[prop];
+    },
+  });
+};
 
 describe('circular-slider', () => {
   it('renders', async () => {

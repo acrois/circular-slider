@@ -1,13 +1,15 @@
-import { Component, Prop, State, Element, h, Host, Watch } from '@stencil/core';
+import { Component, Prop, State, Element, h, Host, Watch, AttachInternals } from '@stencil/core';
 import { polarToCartesian, cartesianToPolar } from '../../utils/utils';
 
 @Component({
   tag: 'circular-slider',
   styleUrl: 'circular-slider.css',
-  shadow: true
+  shadow: true,
+  formAssociated: true,
 })
 export class CircularSlider {
   @Element() element: HTMLElement;
+  @AttachInternals() internals: ElementInternals;
 
   @Prop() size: number = 300;
   @Prop() bgColor: string = '#ccc';
@@ -29,6 +31,15 @@ export class CircularSlider {
 
   componentDidLoad() {
     this.updateThumbPosition(this.value);
+
+    if (this.internals && typeof this.internals.setFormValue === 'function') {
+      try {
+        this.internals.setFormValue(this.value.toString());
+      } catch (e) {
+        // Handle potential error in test environment
+      }
+    }
+
     this.attachEvents();
   }
 
@@ -39,6 +50,14 @@ export class CircularSlider {
   @Watch('value')
   valueChanged(newValue: number) {
     this.updateThumbPosition(newValue);
+
+    if (this.internals && typeof this.internals.setFormValue === 'function') {
+      try {
+        this.internals.setFormValue(newValue.toString());
+      } catch (e) {
+        // Handle potential error in test environment
+      }
+    }
   }
 
   private get radius() {
